@@ -1,30 +1,47 @@
+javascript:
+  $('#My-account').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
+  $('#My-subscribes').click(function (e) {
+    e.preventDefault()
+    $(this).tab('show')
+  })
 .row
   .col-md-6
     .well
-      h3 Мой аккаунт
+      div
+        ul.nav.nav-tabs role="tablist"
+          li.active: a[href="#My-account", aria-controls="My-account" role="tab" data-toggle="tab"] Мой аккаунт
+          li: a[href="#My-subscribes", aria-controls="My-subscribes" role="tab" data-toggle="tab"] Мои подписки
+        .tab-content
+          .tab-pane.active#My-account role="tabpanel"
+            //h3 Мой аккаунт
 
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        p Currently waiting confirmation for: #{resource.unconfirmed_email}
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              p Currently waiting confirmation for: #{resource.unconfirmed_email}
 
-      = simple_form_for resource,
-          as: resource_name,
-          url: registration_path(resource_name),
-          html: { method: :put } do |f|
+            = simple_form_for resource,
+                as: resource_name,
+                url: registration_path(resource_name),
+                html: { method: :put } do |f|
 
-        .form-inputs
-          = f.input :first_name, required: true
-          = f.input :last_name, required: true
-          = f.input :locale,
-                    collection: {"Русский" => "ru", "English" => "en"},
-                    include_blank: false,
-                    requred: true
-          = f.input :email, required: true
-          = f.input :current_password, autocomplete: "off", required: true
-          = f.input :password, autocomplete: "off", required: false
-          = f.input :password_confirmation, required: false
+              .form-inputs
+                = f.input :first_name, required: true
+                = f.input :last_name, required: true
+                = f.input :locale,
+                          collection: {"Русский" => "ru", "English" => "en"},
+                          include_blank: false,
+                          requred: true
+                = f.input :email, required: true
+                = f.input :current_password, autocomplete: "off", required: true
+                = f.input :password, autocomplete: "off", required: false
+                = f.input :password_confirmation, required: false
 
-        .form-actions
-          = f.button :submit
+              .form-actions
+                = f.button :submit
+          .tab-pane#My-subscribes role="tabpanel"
+            div "subscribes"
   .col-md-6
     .well
       h3 = t("registrations.area_title")
