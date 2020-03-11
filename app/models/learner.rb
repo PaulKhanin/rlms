@@ -15,4 +15,6 @@ class Learner < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  has_many :subscriptions, through: :users_subscriptions
 end

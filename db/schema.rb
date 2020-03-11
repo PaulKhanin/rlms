@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_133045) do
+ActiveRecord::Schema.define(version: 2020_03_11_060505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,14 @@ ActiveRecord::Schema.define(version: 2020_02_20_133045) do
     t.index ["unlock_token"], name: "index_learners_on_unlock_token", unique: true
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "name"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "teachers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -80,6 +88,15 @@ ActiveRecord::Schema.define(version: 2020_02_20_133045) do
     t.index ["email"], name: "index_teachers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_teachers_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_teachers_on_unlock_token", unique: true
+  end
+
+  create_table "users_subscriptions", force: :cascade do |t|
+    t.bigint "learner_id"
+    t.bigint "subscription_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["learner_id"], name: "index_users_subscriptions_on_learner_id"
+    t.index ["subscription_id"], name: "index_users_subscriptions_on_subscription_id"
   end
 
 end
